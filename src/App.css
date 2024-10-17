@@ -1,38 +1,65 @@
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.tracks {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.track {
+  background-color: #000;
+  margin: 20px;
+  text-align: center;
+  max-width: 200px;
+  border-radius: 10px;
+  overflow: hidden; /* Добавлено для обрезки содержимого */
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  position: relative;
+  width: 200px;
+  height: 250px;
+}
+
+.track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(50%);
+}
+
+.time-overlay {
+  position: absolute;
+  top: 5px;
+  right: 10px;
   color: white;
+  font-size: 12px;
 }
 
-.App-link {
-  color: #61dafb;
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+  color: white;
+  text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.text-overlay h2 {
+  font-size: 1.1em;
+  margin: 0 0 5px;
+  font-weight: bold;
+}
+
+.text-overlay p {
+  font-size: 0.9em;
+  margin: 0;
 }
