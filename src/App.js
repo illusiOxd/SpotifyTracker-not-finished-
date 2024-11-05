@@ -1,11 +1,14 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import TrackList from "./components/TrackList";
-import "./App.css";
+import RecommendedTracks from "./components/RecommendedTracks";
 import Header from "./components/Header";
+import "./App.css";
+import RecommendedTracksPage from "./pages/RecommendedTracksPage";
 
 const CLIENT_ID = "fa3e30cb0fc64e24baa4aaa2dfc63264";
-const REDIRECT_URI = "http://localhost:3001";
+const REDIRECT_URI = "http://localhost:3000";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const RESPONSE_TYPE = "token";
 
@@ -45,22 +48,27 @@ function App() {
   };
 
   return (
-      <div className="App">
-        <Header />
-        <h1>Spotify Recently Played Tracks</h1>
-        {!token ? (
-            <a
-                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-read-recently-played`}
-            >
-              Login to Spotify
-            </a>
-        ) : (
-            <button onClick={logout}>Logout</button>
-        )}
+      <Router>
+        <div className="App">
+          <Header />
+          <h1>Spotify Recently Played Tracks</h1>
+          {!token ? (
+              <a
+                  href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-read-recently-played`}
+              >
+                Login to Spotify
+              </a>
+          ) : (
+              <button onClick={logout}>Logout</button>
+          )}
 
-        {/* Используем компонент TrackList и передаем ему данные */}
-        <TrackList tracks={tracks} />
-      </div>
+          <Routes>
+            <Route path="/" element={<TrackList tracks={tracks} />} />
+            <Route path="/recommended" element={<RecommendedTracks token={token} />} />
+            <Route path="/contact" element={<div>Contact us at support@spotifytracker.com</div>} />
+          </Routes>
+        </div> 
+      </Router>
   );
 }
 
